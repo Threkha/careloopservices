@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careloop - Casual Healthcare Services</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255,255,255,0.9);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: bold;
+        }
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1, h2 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .service-card {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        form {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        #response {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="Careloop Logo"> <!-- Upload your logo here -->
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#book">Book Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Welcome to Careloop</h1>
+        <p>Your casual healthcare partner for doorstep convenience.</p>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <h3>Doorstep Visit</h3>
+                <p>Expert care at your home.</p>
+            </div>
+            <div class="service-card">
+                <h3>Doctor Visit</h3>
+                <p>Personalized consultations anywhere.</p>
+            </div>
+            <div class="service-card">
+                <h3>Physiotherapy</h3>
+                <p>Recovery sessions on-demand.</p>
+            </div>
+            <!-- Add more services -->
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Phone: +91-XXXXXXXXXX | Email: info@careloop.com | Instagram: @careloop_health</p>
+    </section>
+
+    <section id="book">
+        <h2>Patient Details</h2>
+        <form id="patientForm">
+            <input type="text" id="name" placeholder="Patient Name" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <input type="text" id="address" placeholder="Address" required>
+            <input type="number" id="age" placeholder="Age" required>
+            <select id="gender" required>
+                <option value="">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <textarea id="message" placeholder="Additional Details"></textarea>
+            <button type="submit">Submit Appointment</button>
+        </form>
+        <div id="response"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Careloop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('patientForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value
+            };
+            document.getElementById('response').innerHTML = `
+                <p style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px;">
+                    Thank you, ${formData.name}! Your appointment request received. We'll call on ${formData.phone}.
+                </p>
+            `;
+            document.getElementById('response').style.display = 'block';
+            this.reset();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
