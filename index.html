@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careloop - Casual Healthcare Services</title>
+
+    <meta name="description" content="Careloop provides doorstep doctor visits, physiotherapy, and healthcare services.">
+    <meta name="keywords" content="doorstep doctor, home healthcare, physiotherapy at home">
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,7 +18,7 @@
             min-height: 100vh;
         }
         header {
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             padding: 1rem 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
@@ -33,11 +37,16 @@
             list-style: none;
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
         nav a {
             text-decoration: none;
             color: #667eea;
             font-weight: bold;
+        }
+        .language-select {
+            padding: 0.5rem;
+            border-radius: 6px;
         }
         section {
             padding: 4rem 2rem;
@@ -79,7 +88,6 @@
             margin: 1rem 0;
             border: 1px solid #ddd;
             border-radius: 8px;
-            box-sizing: border-box;
         }
         button {
             background: #667eea;
@@ -89,16 +97,6 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #764ba2;
-        }
-        #response {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
         }
         footer {
             background: rgba(0,0,0,0.8);
@@ -106,107 +104,132 @@
             padding: 2rem;
             text-align: center;
         }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="logo.png" alt="Careloop Logo"> <!-- Upload your logo here -->
-            </div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#book">Book Appointment</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section id="home">
-        <h1>Welcome to Careloop</h1>
-        <p>Your casual healthcare partner for doorstep convenience.</p>
-    </section>
-
-    <section id="services">
-        <h2>Our Services</h2>
-        <div class="services">
-            <div class="service-card">
-                <h3>Doorstep Visit</h3>
-                <p>Expert care at your home.</p>
-            </div>
-            <div class="service-card">
-                <h3>Doctor Visit</h3>
-                <p>Personalized consultations anywhere.</p>
-            </div>
-            <div class="service-card">
-                <h3>Physiotherapy</h3>
-                <p>Recovery sessions on-demand.</p>
-            </div>
-            <!-- Add more services -->
+<header>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Careloop Logo">
         </div>
-    </section>
+        <ul>
+            <li><a href="#home" data-key="navHome">Home</a></li>
+            <li><a href="#services" data-key="navServices">Services</a></li>
+            <li><a href="#contact" data-key="navContact">Contact</a></li>
+            <li><a href="#book" data-key="navBook">Book Appointment</a></li>
+            <li>
+                <select class="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Phone: +91-XXXXXXXXXX | Email: info@careloop.com | Instagram: @careloop_health</p>
-    </section>
+<section id="home">
+    <h1 data-key="welcome">Welcome to Careloop</h1>
+    <p data-key="tagline">Your casual healthcare partner for doorstep convenience.</p>
+</section>
 
-    <section id="book">
-        <h2>Patient Details</h2>
-        <form id="patientForm">
-            <input type="text" id="name" placeholder="Patient Name" required>
-            <input type="tel" id="phone" placeholder="Phone Number" required>
-            <input type="text" id="address" placeholder="Address" required>
-            <input type="number" id="age" placeholder="Age" required>
-            <select id="gender" required>
-                <option value="">Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <textarea id="message" placeholder="Additional Details"></textarea>
-            <button type="submit">Submit Appointment</button>
-        </form>
-        <div id="response"></div>
-    </section>
+<section id="services">
+    <h2 data-key="ourServices">Our Services</h2>
+    <div class="services">
+        <div class="service-card">
+            <h3 data-key="doorstepTitle">Doorstep Visit</h3>
+            <p data-key="doorstepDesc">Expert care at your home.</p>
+        </div>
+        <div class="service-card">
+            <h3 data-key="doctorTitle">Doctor Visit</h3>
+            <p data-key="doctorDesc">Personalized consultations anywhere.</p>
+        </div>
+        <div class="service-card">
+            <h3 data-key="physioTitle">Physiotherapy</h3>
+            <p data-key="physioDesc">Recovery sessions on-demand.</p>
+        </div>
+    </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Careloop. All rights reserved.</p>
-    </footer>
+<section id="contact">
+    <h2 data-key="contactTitle">Contact Us</h2>
+    <p data-key="contactInfo">Phone: +91-XXXXXXXXXX | Email: info@careloop.com</p>
+</section>
 
-    <script>
-        document.getElementById('patientForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                age: document.getElementById('age').value,
-                gender: document.getElementById('gender').value
-            };
-            document.getElementById('response').innerHTML = `
-                <p style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px;">
-                    Thank you, ${formData.name}! Your appointment request received. We'll call on ${formData.phone}.
-                </p>
-            `;
-            document.getElementById('response').style.display = 'block';
-            this.reset();
-        });
+<section id="book">
+    <h2 data-key="patientDetails">Patient Details</h2>
+    <form id="patientForm">
+        <input type="text" id="name" placeholder="Patient Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <select id="gender" required>
+            <option value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <textarea id="message" placeholder="Additional Details"></textarea>
+        <button type="submit" data-key="submitBtn">Submit Appointment</button>
+    </form>
+</section>
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+<footer>
+    <p>© 2026 Careloop. All rights reserved.</p>
+</footer>
+
+<script>
+
+const translations = {
+    en: {
+        navHome: "Home",
+        navServices: "Services",
+        navContact: "Contact",
+        navBook: "Book Appointment",
+        welcome: "Welcome to Careloop",
+        tagline: "Your casual healthcare partner for doorstep convenience.",
+        ourServices: "Our Services",
+        doorstepTitle: "Doorstep Visit",
+        doorstepDesc: "Expert care at your home.",
+        doctorTitle: "Doctor Visit",
+        doctorDesc: "Personalized consultations anywhere.",
+        physioTitle: "Physiotherapy",
+        physioDesc: "Recovery sessions on-demand.",
+        contactTitle: "Contact Us",
+        contactInfo: "Phone: +91-XXXXXXXXXX | Email: info@careloop.com",
+        patientDetails: "Patient Details",
+        submitBtn: "Submit Appointment"
+    },
+    ja: {
+        navHome: "ホーム",
+        navServices: "サービス",
+        navContact: "お問い合わせ",
+        navBook: "予約",
+        welcome: "Careloopへようこそ",
+        tagline: "ご自宅で安心できる医療サービスを提供します。",
+        ourServices: "サービス内容",
+        doorstepTitle: "訪問診療",
+        doorstepDesc: "ご自宅で専門的な医療ケアを提供します。",
+        doctorTitle: "医師の訪問",
+        doctorDesc: "どこでも個別相談を行います。",
+        physioTitle: "理学療法",
+        physioDesc: "オンデマンドの回復セッション。",
+        contactTitle: "お問い合わせ",
+        contactInfo: "電話: +91-8838397429 | メール: careloop2026@gmail.com",
+        patientDetails: "患者情報",
+        submitBtn: "予約を送信"
+    }
+};
+
+function changeLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-key]").forEach(element => {
+        const key = element.getAttribute("data-key");
+        element.textContent = translations[lang][key];
+    });
+}
+
+</script>
+
 </body>
 </html>
